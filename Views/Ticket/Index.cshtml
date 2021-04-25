@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<BugTracker.Models.Ticket>
+
+<div class="bg-img bg-image" style="background-image: url('https://www.strossle.com/hs-fs/hubfs/content-ethics_1920_1080_svartvit.jpg?width=1920&height=1080&name=content-ethics_1920_1080_svartvit.jpg'); ">
+
+    <div class="container">
+        <div class="other-page-nav-padding">
+
+
+            <h1 class="smoke-color ext-bot-padding" id="ticket-header">Tickets that are in progress..</h1>
+
+            @if (Model.Count == 0)
+            {
+                <p>All tickets are solved!</p>
+            }
+            else
+            {
+                <div>
+                    <ul class="list-group">
+                        @foreach (Ticket ticket in Model)
+                        {
+                            <li class="custom-list list-group-item">
+                                <a class="custom-list list-group-item list-group-item-action" asp-controller="Ticket" asp-action="Detail" asp-route-id="@ticket.Id">@ticket.TicketNumber</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    </div>

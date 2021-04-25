@@ -6,10 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BugTracker.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BugTracker.Data
 {
-    public class TicketDbContext : DbContext
+    public class TicketDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Ticket> Tickets { get; set; }
 
@@ -19,6 +20,12 @@ namespace BugTracker.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

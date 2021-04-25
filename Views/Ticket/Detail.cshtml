@@ -1,5 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Ticket
+@*@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}*@
+<div class="bg-img bg-image" style="background-image: url('https://www.capcitycreative.ca/wp-content/uploads/2018/08/design-1024x576.jpg'); ">
+
+    <div class="container">
+        <div class="other-page-nav-padding">
+            <table class="table table-striped table-dark">
+                <tr class="font-weight-bold">
+                    <th>Ticket Owner</th>
+                    <th>Description</th>
+                    <th>TicketNumber</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>@Model.TicketOwner</td>
+                    <td>@Model.Description</td>
+                    <td>@Model.TicketNumber</td>
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id">Solved</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+</div>

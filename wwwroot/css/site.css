@@ -1,1 +1,41 @@
 ﻿
+.other-page-nav-padding {
+    padding-top: 150px;
+}
+
+.bg-img {
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.smoke-color {
+    color:whitesmoke;
+}
+
+.ext-bot-padding {
+    padding-bottom:40px;
+}
+
+.custom-list {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size:1.5rem;
+    font-weight:600;
+}
+
+#ticket-header {
+    text-align:center;
+}
+
+#add-form-img {
+    background-image:url("../assets/img/cool-background.png");
+}
+
+#add-ticket-header {
+    
+    font-family:serif;
+    text-align:center;
+}
