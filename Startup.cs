@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using BugTracker.Services;
 
 namespace BugTracker
 {
@@ -28,11 +31,39 @@ namespace BugTracker
             services.AddControllersWithViews();
             /*services.AddDbContext<TicketDbContext>(options =>
       options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));*/
+
+            //email confirmation via sendgrid
+            //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-5.0&tabs=visual-studio
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
   options.Password.RequiredLength = 8
-);
+  );
+            //social media logins
+            //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-5.0&tabs=visual-studio
+
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            }).AddTwitter(twitterOptions =>
+            {
+                twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                twitterOptions.RetrieveUserDetails = true;
+            }).AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +77,12 @@ namespace BugTracker
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            //Fix login issue Exception: Correlation failed
+            //an error was encountered while handling remote login(google facebook)
+            //samesite cookies
+
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax });
             app.UseCookiePolicy();
 
             app.UseStaticFiles();
