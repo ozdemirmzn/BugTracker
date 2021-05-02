@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace BugTracker.ViewModels
 
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
+
+        public IFormFile Photo1 { get; set; }
+        public IFormFile Photo2 { get; set; }
+        public IFormFile Photo3 { get; set; }
 
     }
 }

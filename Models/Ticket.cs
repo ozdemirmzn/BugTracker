@@ -17,6 +17,10 @@ namespace BugTracker.Models
 
         public string TicketNumber { get; set; }
 
+        public string PhotoPath1 { get; set; }
+        public string PhotoPath2 { get; set; }
+        public string PhotoPath3 { get; set; }
+
 
 
         public Ticket()
