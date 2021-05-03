@@ -17,6 +17,8 @@ namespace BugTracker.Models
 
         public string TicketNumber { get; set; }
 
+        public DateTime SubmissionDate { get; set; }
+
         public string PhotoPath1 { get; set; }
         public string PhotoPath2 { get; set; }
         public string PhotoPath3 { get; set; }
@@ -26,6 +28,7 @@ namespace BugTracker.Models
         public Ticket()
         {
             TicketNumber = GenerateTicketNumber();
+            SubmissionDate = DateTime.Now;
         }
 
         public Ticket(string ticketOwner, string description) : this()

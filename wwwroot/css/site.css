@@ -3,6 +3,10 @@
     padding-top: 150px;
 }
 
+.login-page-nav-padding {
+    padding-top: 60px;
+}
+
 .bg-img {
     height: 100vh;
     background-position: center;
@@ -58,6 +62,7 @@
     text-align: center;
     transition: 0.25s;
     margin-top: 100px;
+    min-width:350px;
 }
 
     .box input[type="email"],
@@ -190,10 +195,18 @@ a.socialIcon:hover,
     }
 
 .fill {
-    min-height: 100%;
+    min-height: 100vh;
     height: 100%;
+    padding-bottom:80px;
 }
 
 .custom-box{margin-top:0;
             margin-bottom:50px;
+}
+
+/*photo sizing*/
+
+.carousel-photo {
+    height:300px;
+    width:auto;
 }
