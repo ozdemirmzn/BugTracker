@@ -20,12 +20,14 @@
                             <th>Ticket Owner</th>
                             <th>Description</th>
                             <th>TicketNumber</th>
+                            <th>Submission Date</th>
                             <th>Action</th>
                         </tr>
                         <tr>
                             <td>@Model.TicketOwner</td>
                             <td>@Model.Description</td>
                             <td>@Model.TicketNumber</td>
+                            <td>@Model.SubmissionDate</td>
                             <td>
                                 <a class="btn btn-success btn-sm" asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id">Solved</a>
                             </td>

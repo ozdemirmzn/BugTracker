@@ -17,6 +17,7 @@ namespace BugTracker.Models
 
         public string TicketNumber { get; set; }
 
+        //https://stackoverflow.com/questions/48266241/how-can-i-get-the-current-date-in-asp-net-core-mvc
         public DateTime SubmissionDate { get; set; }
 
         public string PhotoPath1 { get; set; }
