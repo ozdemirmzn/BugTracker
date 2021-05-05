@@ -66,6 +66,9 @@
 }
 
     .box input[type="email"],
+    .box input[id="firstName"],
+    .box input[id="lastName"],
+    .box input[type="confirmpassword"],
     .box input[type="password"] {
         border: 0;
         background: none;
@@ -88,6 +91,9 @@
     }
 
     .box input[type="email"]:focus,
+    .box input[id="firstName"]:focus,
+    .box input[id="lastName"]:focus,
+    .box input[type="confirmpassword"]:focus,
     .box input[type="password"]:focus {
         width: 300px;
         border-color: #2ecc71
@@ -209,4 +215,8 @@ a.socialIcon:hover,
 .carousel-photo {
     height:300px;
     width:auto;
+}
+
+.white-smoke {
+    color:whitesmoke;
 }

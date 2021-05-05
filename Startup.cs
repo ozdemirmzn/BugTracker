@@ -1,18 +1,13 @@
-using BugTracker.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BugTracker.Services;
+using BugTracker.Models;
+using BugTracker.Data;
 
 namespace BugTracker
 {
@@ -40,8 +35,21 @@ namespace BugTracker
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
-  options.Password.RequiredLength = 8
-  );
+                 options.Password.RequiredLength = 8
+                                                );
+            //customize user table
+            //adding new fields
+            /*services.AddIdentityCore<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();*/
+            services.AddIdentityCore<ApplicationUser>()
+        .AddEntityFrameworkStores<TicketDbContext>()
+        .AddDefaultUI()
+        .AddDefaultTokenProviders();
+
+
             //social media logins
             //https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-5.0&tabs=visual-studio
 
