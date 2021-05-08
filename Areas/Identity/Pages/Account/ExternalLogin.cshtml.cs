@@ -123,11 +123,11 @@ namespace BugTracker.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-               // var fullName = info.ProviderDisplayName;
-                /*var names = fullName.Split(' ');
+                var fullName = info.Principal.FindFirstValue(ClaimTypes.Name);
+                var names = fullName.Split(' ');
                 string firstName = names[0];
-                string lastName = names[1];*/
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email};
+                string lastName = names[1];
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = firstName, LastName=lastName};
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -138,6 +138,7 @@ namespace BugTracker.Areas.Identity.Pages.Account
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
                         var userId = await _userManager.GetUserIdAsync(user);
+                        
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         var callbackUrl = Url.Page(
