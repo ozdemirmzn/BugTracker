@@ -20,9 +20,16 @@ namespace BugTracker.Areas.Identity
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<TicketDbContext>();
+                services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.SignIn.RequireConfirmedEmail = true;
+                })
+                  .AddEntityFrameworkStores<TicketDbContext>()
+                  .AddDefaultUI()
+                  .AddDefaultTokenProviders();
             });
+
         }
     }
 }

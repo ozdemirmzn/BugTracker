@@ -6,11 +6,13 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    @*var user = UserManager.GetUserAsync(User);
-    var name = user.FirstName;*@
+    var UserName = UserManager.GetUserName(User);
+    var user = await UserManager.FindByNameAsync(UserName);
+    var FirstName = user.FirstName;
+
 
     <li class="nav-item">
-        <a id="manage" class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @FirstName!</a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

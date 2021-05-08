@@ -11,5 +11,10 @@ namespace BugTracker.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+        //prevents creating duplicate users table
+        public static explicit operator ApplicationUser(Task<ApplicationUser> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

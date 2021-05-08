@@ -7,13 +7,11 @@ namespace BugTracker.Models
 {
     public class Ticket
     {
-        public string TicketOwner { get; set; }
+        
 
         public string Description { get; set; }
 
         public int Id { get; set; }
-
-       
 
         public string TicketNumber { get; set; }
 
@@ -24,7 +22,8 @@ namespace BugTracker.Models
         public string PhotoPath2 { get; set; }
         public string PhotoPath3 { get; set; }
 
-
+        /*public string UserId { get; set; }*/
+        public ApplicationUser applicationUser { get; set; }
 
         public Ticket()
         {
@@ -32,10 +31,11 @@ namespace BugTracker.Models
             SubmissionDate = DateTime.Now;
         }
 
-        public Ticket(string ticketOwner, string description) : this()
+        public Ticket(string description) : this()
         {
-            TicketOwner = ticketOwner;
+
             Description = description;
+           
 
         }
 

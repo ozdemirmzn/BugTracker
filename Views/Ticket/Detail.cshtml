@@ -1,14 +1,22 @@
 ﻿@model Ticket
-@*@{
-        Layout = "/Views/Shared/_Layout.cshtml";
-    }*@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
 
     var photoPath1 = "~/images/" + (@Model.PhotoPath1 ?? "noimage.jpg");
     var photoPath2 = "~/images/" + (@Model.PhotoPath2 ?? "noimage.jpg");
     var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");
+
+    var UserName = UserManager.GetUserName(User);
+    var user = await UserManager.FindByNameAsync(UserName);
+    var FirstName = user.FirstName;
+    var LastName = user.LastName;
 }
+
+   
 
 <div class="bg-img bg-image fill" style="background-image: linear-gradient(to right, #b92b27, #1565c0)">
     <div class="container">
@@ -20,13 +28,15 @@
                             <th>Ticket Owner</th>
                             <th>Description</th>
                             <th>TicketNumber</th>
+                            <th>Email</th>
                             <th>Submission Date</th>
                             <th>Action</th>
                         </tr>
                         <tr>
-                            <td>@Model.TicketOwner</td>
+                            <td>@FirstName @LastName</td>
                             <td>@Model.Description</td>
                             <td>@Model.TicketNumber</td>
+                            <td>@UserName</td>
                             <td>@Model.SubmissionDate</td>
                             <td>
                                 <a class="btn btn-success btn-sm" asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id">Solved</a>
@@ -43,31 +53,31 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active container-fluid">
                                 <div class="d-flex justify-content-center">
-                                   <img class="carousel-photo" src="@photoPath1" asp-append-version="true" alt="First slide" />
-                            </div>
+                                    <img class="carousel-photo" src="@photoPath1" asp-append-version="true" alt="First slide" />
+                                </div>
                             </div>
                             <div class="carousel-item container-fluid">
                                 <div class="d-flex justify-content-center">
                                     <img class="carousel-photo" src="@photoPath2" asp-append-version="true" alt="Second slide" />
                                 </div>
                             </div>
-                                <div class="carousel-item container-fluid">
-                                    <div class="d-flex justify-content-center">
-                                        <img class="carousel-photo" src="@photoPath3" asp-append-version="true" alt="Third slide" />
-                                    </div>
+                            <div class="carousel-item container-fluid">
+                                <div class="d-flex justify-content-center">
+                                    <img class="carousel-photo" src="@photoPath3" asp-append-version="true" alt="Third slide" />
                                 </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

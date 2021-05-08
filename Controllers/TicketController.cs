@@ -90,10 +90,13 @@ namespace BugTracker.Controllers
                     addTicketViewModel.Photo3.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
 
+                ApplicationUser NewApplicationUser = context.Users.Find(addTicketViewModel.UserId);
+
                 Ticket newTicket = new Ticket
                 {
-                    TicketOwner = addTicketViewModel.TicketOwner,
+
                     Description = addTicketViewModel.Description,
+                    applicationUser = NewApplicationUser,
                     PhotoPath1 = uniqueFileName1,
                     PhotoPath2 = uniqueFileName2,
                     PhotoPath3 = uniqueFileName3

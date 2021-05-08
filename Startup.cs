@@ -39,15 +39,8 @@ namespace BugTracker
                                                 );
             //customize user table
             //adding new fields
-            /*services.AddIdentityCore<ApplicationUser>()
-                .AddRoles<IdentityRole>()
-                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI();*/
-            services.AddIdentityCore<ApplicationUser>()
-        .AddEntityFrameworkStores<TicketDbContext>()
-        .AddDefaultUI()
-        .AddDefaultTokenProviders();
+            
+            
 
 
             //social media logins
