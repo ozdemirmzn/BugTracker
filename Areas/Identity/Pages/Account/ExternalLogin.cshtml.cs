@@ -95,21 +95,51 @@ namespace BugTracker.Areas.Identity.Pages.Account
             }
             else
             {
-                // If the user does not have an account, then ask the user to create an account.
-                ReturnUrl = returnUrl;
-                ProviderDisplayName = info.ProviderDisplayName;
-                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                //Get user Name from external provider
+                var NewUserName = info.Principal.FindFirstValue(ClaimTypes.Name);
+
+                //Get Email address from external provider
+                var NewEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                //Split External user name to into first and last names
+                string[] names = NewUserName.Split(' ');
+
+                //Create user object using the info from external provider
+                var user = new ApplicationUser { UserName = NewEmail, Email = NewEmail, FirstName = names[0], LastName = names[1] };
+
+                //create database user without password 
+                var UserCreateResult = await _userManager.CreateAsync(user);
+
+                if (UserCreateResult.Succeeded)
                 {
-                    Input = new InputModel
+                    //Find the user from DataBase
+                    ApplicationUser applicationUser = await _userManager.FindByIdAsync(user.Id);
+
+                    //Confirm Email to avoid sending email confirmation link
+                    applicationUser.EmailConfirmed = true;
+
+                    //Update user info to confirm email confirmation column in Database
+                    await _userManager.UpdateAsync(user);
+
+                    //Add login info for the user
+                    var UserLoginResult = await _userManager.AddLoginAsync(user, info);
+
+                    if (UserLoginResult.Succeeded)
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
-                    };
+                        //Sign in the new user
+                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+
+                        return LocalRedirect(returnUrl);
+                    }
+
                 }
+
                 return Page();
             }
         }
-
-        public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
+        //OnPostConfirmationAsync: This method is required if we want to ask the user to confirm his/her email address
+        //Social media accounts already contain confirmed email information so there is no need to confirm user's email again.
+        /*public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
@@ -170,6 +200,6 @@ namespace BugTracker.Areas.Identity.Pages.Account
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
             return Page();
-        }
+        }*/
     }
 }
