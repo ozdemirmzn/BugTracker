@@ -52,17 +52,17 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" src="@photoPath1" asp-append-version="true" alt="First slide" />
+                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="@photoPath1" asp-append-version="true" alt="First slide" />
                                 </div>
                             </div>
                             <div class="carousel-item container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" src="@photoPath2" asp-append-version="true" alt="Second slide" />
+                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter2" src="@photoPath2" asp-append-version="true" alt="Second slide" />
                                 </div>
                             </div>
                             <div class="carousel-item container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" src="@photoPath3" asp-append-version="true" alt="Third slide" />
+                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter3" src="@photoPath3" asp-append-version="true" alt="Third slide" />
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -74,6 +74,29 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade justify-content-center" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <img class="carousel-photo-larger" src="@photoPath1" asp-append-version="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade justify-content-center" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <img class="carousel-photo-larger" src="@photoPath2" asp-append-version="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade justify-content-center" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <img class="carousel-photo-larger" src="@photoPath3" asp-append-version="true" />
                     </div>
                 </div>
             </div>

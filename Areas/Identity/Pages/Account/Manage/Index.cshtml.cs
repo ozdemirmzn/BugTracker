@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BugTracker.Data;
 using BugTracker.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,16 +17,23 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly TicketDbContext context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            TicketDbContext ticketDbContext)
+            
         {
             _userManager = userManager;
             _signInManager = signInManager;
-        }
+            context = ticketDbContext;
+    }
 
         public string Username { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -40,22 +50,29 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var firstName = user.FirstName;
-            var lastName = user.LastName;
+            var profilePicture = user.ProfilePicture;
+            var FirstName = user.FirstName;
+            var LastName = user.LastName;
+
+  
 
             Username = userName;
+           
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber,
-                FirstName = firstName,
-                LastName = lastName
+            PhoneNumber = phoneNumber,
+            FirstName = FirstName,
+            LastName = LastName,
+            ProfilePicture = profilePicture
             };
         }
 
@@ -86,18 +103,18 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
             }
 
             var firstName = user.FirstName;
-            
+            var lastName = user.LastName;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
                 await _userManager.UpdateAsync(user);
             }
-            var lastName = user.LastName;
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
                 await _userManager.UpdateAsync(user);
             }
+
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
@@ -109,6 +126,22 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            //saving pic to database
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+
+           
+
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

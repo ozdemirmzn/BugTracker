@@ -112,7 +112,7 @@ namespace BugTracker.Controllers
             return View("Add", addTicketViewModel);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Detail(int id)
         {
             Ticket theTicket = context.Tickets

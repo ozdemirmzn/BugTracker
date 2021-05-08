@@ -220,3 +220,29 @@ a.socialIcon:hover,
 .white-smoke {
     color:whitesmoke;
 }
+
+.carousel-photo-larger{
+    height: 400px;
+    width: auto;
+}
+
+
+
+#profilePicture {
+    width: 300px;
+    height: 350px;
+    object-fit: cover;
+}
+
+.profile-pic-upload-sec {
+    background-color: transparent;
+    width: 300px;
+}
+
+.nav-bar-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+

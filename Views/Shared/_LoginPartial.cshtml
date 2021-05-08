@@ -4,29 +4,38 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    var UserName = UserManager.GetUserName(User);
-    var user = await UserManager.FindByNameAsync(UserName);
-    var FirstName = user.FirstName;
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var UserName = UserManager.GetUserName(User);
+        var user = await UserManager.FindByNameAsync(UserName);
+        var FirstName = user.FirstName;
 
-
-    <li class="nav-item">
-        <a id="manage" class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @FirstName!</a>
+    <li class="nav-item d-flex align-items-center" style="align-self: center;">
+        @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+        {
+            <img class="nav-bar-pic"  src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+        }
+        else
+        {
+            <img class="nav-bar-pic" src="~/images/profile.png">
+        }
     </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link js-scroll-trigger">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+        <li class="nav-item d-flex align-items-center">
+            <a id="manage" class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @FirstName!</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link js-scroll-trigger">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item d-flex align-items-center">
+            <a class="nav-link js-scroll-trigger" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+            <a class="nav-link js-scroll-trigger" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

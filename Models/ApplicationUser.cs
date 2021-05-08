@@ -11,6 +11,8 @@ namespace BugTracker.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public byte[] ProfilePicture { get; set; }
         //prevents creating duplicate users table
         public static explicit operator ApplicationUser(Task<ApplicationUser> v)
         {
