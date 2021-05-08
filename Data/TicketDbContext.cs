@@ -24,6 +24,8 @@ namespace BugTracker.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //updating all identity table names
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");

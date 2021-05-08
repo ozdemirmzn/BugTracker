@@ -54,6 +54,7 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
             public byte[] ProfilePicture { get; set; }
         }
 
+
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -102,6 +103,7 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            //updatable first and last name
             var firstName = user.FirstName;
             var lastName = user.LastName;
             if (Input.FirstName != firstName)
@@ -115,7 +117,7 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
                 await _userManager.UpdateAsync(user);
             }
 
-
+            //phone number update
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -142,7 +144,7 @@ namespace BugTracker.Areas.Identity.Pages.Account.Manage
            
 
 
-
+            //saving everything to database
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

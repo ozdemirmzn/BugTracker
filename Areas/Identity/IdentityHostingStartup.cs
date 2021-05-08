@@ -20,6 +20,8 @@ namespace BugTracker.Areas.Identity
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
+                //customize user table
+                //adding new fields
                 services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;

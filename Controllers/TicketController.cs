@@ -96,7 +96,7 @@ namespace BugTracker.Controllers
                 {
 
                     Description = addTicketViewModel.Description,
-                    applicationUser = NewApplicationUser,
+                    User = NewApplicationUser,
                     PhotoPath1 = uniqueFileName1,
                     PhotoPath2 = uniqueFileName2,
                     PhotoPath3 = uniqueFileName3

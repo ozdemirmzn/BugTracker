@@ -13,6 +13,9 @@ namespace BugTracker.ViewModels
 
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
+
+
+        //foreign key relation btw user table and ticket table
         [Required(ErrorMessage ="Please Sign Out, clear cookies and Sign In Again")]
         public string UserId { get; set; }
 

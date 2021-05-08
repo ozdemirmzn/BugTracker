@@ -13,7 +13,9 @@ namespace BugTracker.Models
         public string LastName { get; set; }
 
         public byte[] ProfilePicture { get; set; }
-        //prevents creating duplicate users table
+
+
+        //prevents creating duplicate users table in identity framework
         public static explicit operator ApplicationUser(Task<ApplicationUser> v)
         {
             throw new NotImplementedException();

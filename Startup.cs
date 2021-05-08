@@ -37,8 +37,7 @@ namespace BugTracker
             services.Configure<IdentityOptions>(options =>
                  options.Password.RequiredLength = 8
                                                 );
-            //customize user table
-            //adding new fields
+            
             
             
 
