@@ -3,6 +3,7 @@ using BugTracker.Models;
 using BugTracker.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -39,11 +40,11 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost("/Add")]
-        public IActionResult ProcessAddTicket(AddTicketViewModel addTicketViewModel)
+        public async Task<IActionResult> ProcessAddTicketAsync(AddTicketViewModel addTicketViewModel)
         {
             if (ModelState.IsValid)
             {
-                string uniqueFileName1 = null;
+                /*string uniqueFileName1 = null;
                 string uniqueFileName2 = null;
                 string uniqueFileName3 = null;
 
@@ -88,7 +89,62 @@ namespace BugTracker.Controllers
                     // Use CopyTo() method provided by IFormFile interface to
                     // copy the file to wwwroot/images folder
                     addTicketViewModel.Photo3.CopyTo(new FileStream(filePath, FileMode.Create));
+                }*/
+
+                if (Request.Form.Files.Count == 1)
+                {
+
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
+                    using (var dataStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(dataStream);
+                        addTicketViewModel.Picture1 = dataStream.ToArray();
+                    }
+                    
                 }
+                else if (Request.Form.Files.Count == 2)
+                {
+
+                    IFormFile[] file = new IFormFile[2];
+                    file[0] = Request.Form.Files[0];
+                    using (var dataStream1 = new MemoryStream())
+                    {
+                        await file[0].CopyToAsync(dataStream1);
+                        addTicketViewModel.Picture1 = dataStream1.ToArray();
+                    }
+                    file[1] = Request.Form.Files[1];
+                    using (var dataStream2 = new MemoryStream())
+                    {
+                        await file[1].CopyToAsync(dataStream2);
+                        addTicketViewModel.Picture2 = dataStream2.ToArray();
+                    }
+
+                }
+                else if (Request.Form.Files.Count == 3)
+                {
+
+                    IFormFile[] file = new IFormFile[3];
+                    file[0] = Request.Form.Files[0];
+                    using (var dataStream1 = new MemoryStream())
+                    {
+                        await file[0].CopyToAsync(dataStream1);
+                        addTicketViewModel.Picture1 = dataStream1.ToArray();
+                    }
+                    file[1] = Request.Form.Files[1];
+                    using (var dataStream2 = new MemoryStream())
+                    {
+                        await file[1].CopyToAsync(dataStream2);
+                        addTicketViewModel.Picture2 = dataStream2.ToArray();
+                    }
+                    file[2] = Request.Form.Files[2];
+                    using (var dataStream3 = new MemoryStream())
+                    {
+                        await file[2].CopyToAsync(dataStream3);
+                        addTicketViewModel.Picture3 = dataStream3.ToArray();
+                    }
+
+                }
+
 
                 ApplicationUser NewApplicationUser = context.Users.Find(addTicketViewModel.UserId);
 
@@ -97,9 +153,12 @@ namespace BugTracker.Controllers
 
                     Description = addTicketViewModel.Description,
                     User = NewApplicationUser,
-                    PhotoPath1 = uniqueFileName1,
+                    /*PhotoPath1 = uniqueFileName1,
                     PhotoPath2 = uniqueFileName2,
-                    PhotoPath3 = uniqueFileName3
+                    PhotoPath3 = uniqueFileName3,*/
+                    Picture1 = addTicketViewModel.Picture1,
+                    Picture2 = addTicketViewModel.Picture2,
+                    Picture3 = addTicketViewModel.Picture3
 
                 };
 

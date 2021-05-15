@@ -5,9 +5,9 @@
 
 @{
 
-    var photoPath1 = "~/images/" + (@Model.PhotoPath1 ?? "noimage.jpg");
+   @* var photoPath1 = "~/images/" + (@Model.PhotoPath1 ?? "noimage.jpg");
     var photoPath2 = "~/images/" + (@Model.PhotoPath2 ?? "noimage.jpg");
-    var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");
+    var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");*@
 
     
     var user = await UserManager.FindByIdAsync(@Model.UserId);
@@ -53,17 +53,40 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="@photoPath1" asp-append-version="true" alt="First slide" />
+                                    @if (Model.Picture1 != null)
+                                    {
+                                        <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture1))" asp-append-version="true" alt="First slide">
+                                    }
+                                    else
+                                    {
+                                        <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="~/images/noimage.jpg" asp-append-version="true" alt="First slide">
+                                    }
                                 </div>
                             </div>
                             <div class="carousel-item container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter2" src="@photoPath2" asp-append-version="true" alt="Second slide" />
+                                    @if (Model.Picture2 != null)
+                                    {
+                                        <img id="Picture2" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter2" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture2))" asp-append-version="true" alt="Second slide">
+                                    }
+                                    else
+                                    {
+                                        <img id="Picture2" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter2" src="~/images/noimage.jpg" asp-append-version="true" alt="Second slide">
+                                    }
+                                    @*<img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter2" src="@photoPath2" asp-append-version="true" alt="Second slide" />*@
                                 </div>
                             </div>
                             <div class="carousel-item container-fluid">
                                 <div class="d-flex justify-content-center">
-                                    <img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter3" src="@photoPath3" asp-append-version="true" alt="Third slide" />
+                                    @if (Model.Picture3 != null)
+                                    {
+                                        <img id="Picture3" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter3" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture3))" asp-append-version="true" alt="Third slide">
+                                    }
+                                    else
+                                    {
+                                        <img id="Picture3" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter3" src="~/images/noimage.jpg" asp-append-version="true" alt="Third slide">
+                                    }
+                                    @*<img class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter3" src="@photoPath3" asp-append-version="true" alt="Third slide" />*@
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -79,25 +102,64 @@
                 </div>
             </div>
 
+           @* @if (Model.Picture1 != null)
+            {
+                <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture1))" asp-append-version="true" alt="First slide">
+            }
+            else
+            {
+                <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="~/images/noimage.jpg" asp-append-version="true" alt="First slide">
+            }
+            @if (Model.Picture2 != null)
+            {
+                <img id="Picture2" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture2))">
+            }
+            @if (Model.Picture3 != null)
+            {
+                <img id="Picture3" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture3))">
+            }*@
+
+
             <!-- Modal -->
             <div class="modal fade justify-content-center" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <img class="carousel-photo-larger" src="@photoPath1" asp-append-version="true" />
+                        @if (Model.Picture1 != null)
+                        {
+                            <img class="carousel-photo-larger" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture1))" asp-append-version="true" />
+                        }
+                        else
+                        {
+                        <img class="carousel-photo-larger" src="~/images/noimage.jpg" asp-append-version="true" />
+                        }
                     </div>
                 </div>
             </div>
             <div class="modal fade justify-content-center" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <img class="carousel-photo-larger" src="@photoPath2" asp-append-version="true" />
+                        @if (Model.Picture2 != null)
+                        {
+                            <img class="carousel-photo-larger" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture2))" asp-append-version="true" />
+                        }
+                        else
+                        {
+                            <img class="carousel-photo-larger" src="~/images/noimage.jpg" asp-append-version="true" />
+                        }
                     </div>
                 </div>
             </div>
             <div class="modal fade justify-content-center" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <img class="carousel-photo-larger" src="@photoPath3" asp-append-version="true" />
+                        @if (Model.Picture3 != null)
+                        {
+                            <img class="carousel-photo-larger" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture3))" asp-append-version="true" />
+                        }
+                        else
+                        {
+                            <img class="carousel-photo-larger" src="~/images/noimage.jpg" asp-append-version="true" />
+                        }
                     </div>
                 </div>
             </div>

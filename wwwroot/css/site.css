@@ -239,6 +239,11 @@ a.socialIcon:hover,
     width: 300px;
 }
 
+.pic-upload-sec {
+    background-color: transparent;
+    border:none;
+}
+
 .nav-bar-pic {
     width: 40px;
     height: 40px;
@@ -248,5 +253,12 @@ a.socialIcon:hover,
 .access-page {
     text-align:center;
     padding-top:150px;
+}
+
+.add-view {
+    border-top: 5px solid #f4a13a96;
+}
+.bottom-space {
+    padding-bottom:15px;
 }
 

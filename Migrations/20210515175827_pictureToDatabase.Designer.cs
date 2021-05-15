@@ -3,14 +3,16 @@ using System;
 using BugTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(TicketDbContext))]
-    partial class TicketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210515175827_pictureToDatabase")]
+    partial class pictureToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,13 +101,16 @@ namespace BugTracker.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("PhotoPath1")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PhotoPath2")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PhotoPath3")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<byte[]>("Picture1")
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("Picture2")
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("Picture3")
                         .HasColumnType("longblob");
 
                     b.Property<DateTime>("SubmissionDate")

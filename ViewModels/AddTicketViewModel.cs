@@ -19,9 +19,12 @@ namespace BugTracker.ViewModels
         [Required(ErrorMessage ="Please Sign Out, clear cookies and Sign In Again")]
         public string UserId { get; set; }
 
-        public IFormFile Photo1 { get; set; }
+       /* public IFormFile Photo1 { get; set; }
         public IFormFile Photo2 { get; set; }
-        public IFormFile Photo3 { get; set; }
+        public IFormFile Photo3 { get; set; }*/
+        public byte[] Picture1 { get; set; }
+        public byte[] Picture2 { get; set; }
+        public byte[] Picture3 { get; set; }
 
     }
 }

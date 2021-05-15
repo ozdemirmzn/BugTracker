@@ -18,46 +18,73 @@
     <div class="container">
         <div class="other-page-nav-padding">
             <div class="row justify-content-center">
-                <div class="col-8">
-                    <h1 class="ext-bot-padding" id="add-ticket-header">CREATE A NEW TICKET</h1>
+                <div class="col-10">
+                    <h1 class="ext-bot-padding white-smoke" id="add-ticket-header">CREATE A NEW TICKET</h1>
 
                     <form enctype="multipart/form-data" asp-controller="Ticket" asp-action="ProcessAddTicket" method="post">
                         <div class="form-group">
-                            <label class="add-ticket-label">Ticket Description</label>
+                            <label class="add-ticket-label white-smoke">Ticket Description</label>
                             <textarea class="form-control" asp-for="Description" rows="4"><</textarea>
                             <span asp-validation-for="Description"></span>
                         </div>
+                        @* <div class="form-group">
+            <label asp-for="Photo1">Add Screenshot or Picture (optional)</label>
+            <div class="form-row">
+                <div class="custom-file">
+                    <input asp-for="Photo1" class="form-control custom-file-input">
+                    <label class="custom-file-label">Choose File...</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Photo2">Add Screenshot or Picture (optional)</label>
+            <div class="form-row">
+                <div class="custom-file">
+                    <input asp-for="Photo2" class="form-control custom-file-input">
+                    <label class="custom-file-label">Choose File...</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Photo3">Add Screenshot or Picture (optional)</label>
+            <div class="form-row">
+                <div class="custom-file">
+                    <input asp-for="Photo3" class="form-control custom-file-input">
+                    <label class="custom-file-label">Choose File...</label>
+                </div>
+            </div>
+        </div>*@
                         <div class="form-group">
-                            <label asp-for="Photo1">Add Screenshot or Picture (optional)</label>
+                            <label asp-for="Picture1" class="white-smoke bottom-space" style="padding-top:30px">Add Screenshot or Picture - 1 (optional)</label>
                             <div class="form-row">
                                 <div class="custom-file">
-                                    <input asp-for="Photo1" class="form-control custom-file-input">
-                                    <label class="custom-file-label">Choose File...</label>
+                                    <input type="file" accept=".png,.jpg,.jpeg,.gif,.tif" asp-for="Picture1" class="form-control white-smoke pic-upload-sec">
                                 </div>
                             </div>
                         </div>
+                        <hr class="add-view"/>
                         <div class="form-group">
-                            <label asp-for="Photo2">Add Screenshot or Picture (optional)</label>
+                            <label asp-for="Picture2" class="white-smoke bottom-space">Add Screenshot or Picture - 2 (optional)</label>
                             <div class="form-row">
                                 <div class="custom-file">
-                                    <input asp-for="Photo2" class="form-control custom-file-input">
-                                    <label class="custom-file-label">Choose File...</label>
+                                    <input type="file" accept=".png,.jpg,.jpeg,.gif,.tif" asp-for="Picture2" class="form-control white-smoke pic-upload-sec">
                                 </div>
                             </div>
                         </div>
+                        <hr class="add-view"/>
                         <div class="form-group">
-                            <label asp-for="Photo3">Add Screenshot or Picture (optional)</label>
+                            <label asp-for="Picture3" class="white-smoke bottom-space">Add Screenshot or Picture - 3 (optional)</label>
                             <div class="form-row">
                                 <div class="custom-file">
-                                    <input asp-for="Photo3" class="form-control custom-file-input">
-                                    <label class="custom-file-label">Choose File...</label>
+                                    <input type="file" accept=".png,.jpg,.jpeg,.gif,.tif" asp-for="Picture3" class="form-control white-smoke pic-upload-sec">
                                 </div>
                             </div>
                         </div>
+                        <hr class="add-view"/>
 
                         <input asp-for="UserId" type="text" hidden value="@UserId" />
 
-                        <input class="btn btn-secondary" type="submit" value="Submit" />
+                        <input class="btn btn-dark btn-lg" type="submit" value="Submit" style="margin-top:40px" />
                     </form>
                 </div>
             </div>
