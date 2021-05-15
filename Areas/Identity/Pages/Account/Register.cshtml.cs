@@ -89,7 +89,7 @@ namespace BugTracker.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    await _userManager.AddToRoleAsync(user, Models.Roles.Basic.ToString());
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -103,6 +103,7 @@ namespace BugTracker.Areas.Identity.Pages.Account
                         $"Thank you for signing up <br><br>" +
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br><br>" +
                         $"Bug Tracker App Team");
+                    
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

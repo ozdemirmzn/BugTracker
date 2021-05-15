@@ -106,7 +106,7 @@ namespace BugTracker.Areas.Identity.Pages.Account
 
                 //Create user object using the info from external provider
                 var user = new ApplicationUser { UserName = NewEmail, Email = NewEmail, FirstName = names[0], LastName = names[1] };
-
+                await _userManager.AddToRoleAsync(user, Models.Roles.Basic.ToString());
                 //create database user without password 
                 var UserCreateResult = await _userManager.CreateAsync(user);
 

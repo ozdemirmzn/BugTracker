@@ -112,7 +112,7 @@ namespace BugTracker.Controllers
             return View("Add", addTicketViewModel);
         }
 
-        [Authorize]
+        
         public IActionResult Detail(int id)
         {
             Ticket theTicket = context.Tickets
@@ -123,7 +123,7 @@ namespace BugTracker.Controllers
 
 
 
-
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public IActionResult Delete(int id)
         {
             Ticket theTicket = context.Tickets

@@ -24,7 +24,7 @@ namespace BugTracker.Areas.Identity
                 //adding new fields
                 services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = false;
+                    options.SignIn.RequireConfirmedAccount = true;
                     options.SignIn.RequireConfirmedEmail = true;
                 })
                   .AddEntityFrameworkStores<TicketDbContext>()

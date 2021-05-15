@@ -245,4 +245,8 @@ a.socialIcon:hover,
     object-fit: cover;
     border-radius: 30px;
 }
+.access-page {
+    text-align:center;
+    padding-top:150px;
+}
 
