@@ -7,9 +7,9 @@ MySQL Database
 
 Entity Framework
 
-Google API (Maps, Geolocation and Addresses)
+Identity Framework
 
-Local and Social Media(Google and Facebook) Authentication
+Local and Social Media(Google, Twitter and Facebook) Authentication
 
 Autherization
 
