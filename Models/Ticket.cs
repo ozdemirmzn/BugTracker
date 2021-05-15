@@ -23,6 +23,7 @@ namespace BugTracker.Models
         public string PhotoPath3 { get; set; }
 
         //creates realtion btw user table and created ticketes
+        public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
         public Ticket()

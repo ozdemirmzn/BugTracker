@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(TicketDbContext))]
-    [Migration("20210508205133_profilePic")]
-    partial class profilePic
+    [Migration("20210515042029_userId")]
+    partial class userId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,12 +116,12 @@ namespace BugTracker.Migrations
                     b.Property<string>("TicketNumber")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("applicationUserId")
+                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("applicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -256,9 +256,9 @@ namespace BugTracker.Migrations
 
             modelBuilder.Entity("BugTracker.Models.Ticket", b =>
                 {
-                    b.HasOne("BugTracker.Models.ApplicationUser", "applicationUser")
+                    b.HasOne("BugTracker.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("applicationUserId");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

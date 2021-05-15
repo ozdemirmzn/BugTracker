@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BugTracker.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class userId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,8 @@ namespace BugTracker.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    ProfilePicture = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,14 +83,14 @@ namespace BugTracker.Migrations
                     PhotoPath1 = table.Column<string>(nullable: true),
                     PhotoPath2 = table.Column<string>(nullable: true),
                     PhotoPath3 = table.Column<string>(nullable: true),
-                    applicationUserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_User_applicationUserId",
-                        column: x => x.applicationUserId,
+                        name: "FK_Tickets_User_UserId",
+                        column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -192,9 +193,9 @@ namespace BugTracker.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_applicationUserId",
+                name: "IX_Tickets_UserId",
                 table: "Tickets",
-                column: "applicationUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

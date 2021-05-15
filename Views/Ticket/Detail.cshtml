@@ -9,10 +9,11 @@
     var photoPath2 = "~/images/" + (@Model.PhotoPath2 ?? "noimage.jpg");
     var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");
 
-    var UserName = UserManager.GetUserName(User);
-    var user = await UserManager.FindByNameAsync(UserName);
+    
+    var user = await UserManager.FindByIdAsync(@Model.UserId);
     var FirstName = user.FirstName;
     var LastName = user.LastName;
+    var UserName = user.Email;
 }
 
    
