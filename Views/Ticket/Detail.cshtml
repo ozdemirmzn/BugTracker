@@ -2,27 +2,29 @@
 @using Microsoft.AspNetCore.Identity
 
 @inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
 
-   @* var photoPath1 = "~/images/" + (@Model.PhotoPath1 ?? "noimage.jpg");
-    var photoPath2 = "~/images/" + (@Model.PhotoPath2 ?? "noimage.jpg");
-    var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");*@
-
+    @* var photoPath1 = "~/images/" + (@Model.PhotoPath1 ?? "noimage.jpg");
+        var photoPath2 = "~/images/" + (@Model.PhotoPath2 ?? "noimage.jpg");
+        var photoPath3 = "~/images/" + (@Model.PhotoPath3 ?? "noimage.jpg");*@
     
+
+
     var user = await UserManager.FindByIdAsync(@Model.UserId);
     var FirstName = user.FirstName;
     var LastName = user.LastName;
     var UserName = user.Email;
 }
 
-   
+
 
 <div class="bg-img bg-image fill" style="background-image: linear-gradient(to right, #b92b27, #1565c0)">
     <div class="container">
         <div class="other-page-nav-padding">
             <div class="row justify-content-center">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <table class="table table-striped table-dark">
                         <tr class="font-weight-bold">
                             <th>Ticket Owner</th>
@@ -39,7 +41,16 @@
                             <td>@UserName</td>
                             <td>@Model.SubmissionDate</td>
                             <td>
-                                <a class="btn btn-success btn-sm" asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id">Solved</a>
+                                @*Gives permission to edit entry to user if added by same user*@
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var currentUserId = UserManager.GetUserId(User);
+
+                                @if (currentUserId.Equals(@Model.UserId))
+                                {
+                                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@Model.Id" title="Click to Edit"><i class="fas fa-edit"></i></a>}
+                                }  
+                                <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id" title="Delete the solved ticket" style="float:right"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
 
@@ -102,22 +113,22 @@
                 </div>
             </div>
 
-           @* @if (Model.Picture1 != null)
-            {
-                <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture1))" asp-append-version="true" alt="First slide">
-            }
-            else
-            {
-                <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="~/images/noimage.jpg" asp-append-version="true" alt="First slide">
-            }
-            @if (Model.Picture2 != null)
-            {
-                <img id="Picture2" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture2))">
-            }
-            @if (Model.Picture3 != null)
-            {
-                <img id="Picture3" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture3))">
-            }*@
+            @* @if (Model.Picture1 != null)
+                {
+                    <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture1))" asp-append-version="true" alt="First slide">
+                }
+                else
+                {
+                    <img id="Picture1" class="carousel-photo" data-toggle="modal" data-target="#exampleModalCenter1" src="~/images/noimage.jpg" asp-append-version="true" alt="First slide">
+                }
+                @if (Model.Picture2 != null)
+                {
+                    <img id="Picture2" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture2))">
+                }
+                @if (Model.Picture3 != null)
+                {
+                    <img id="Picture3" class="carousel-photo" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture3))">
+                }*@
 
 
             <!-- Modal -->
@@ -130,7 +141,7 @@
                         }
                         else
                         {
-                        <img class="carousel-photo-larger" src="~/images/noimage.jpg" asp-append-version="true" />
+                            <img class="carousel-photo-larger" src="~/images/noimage.jpg" asp-append-version="true" />
                         }
                     </div>
                 </div>

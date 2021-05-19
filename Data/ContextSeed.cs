@@ -9,6 +9,7 @@ namespace BugTracker.Data
 {
     public class ContextSeed
     {
+        //adds default roles to database
         public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             //Seed Roles
@@ -18,7 +19,7 @@ namespace BugTracker.Data
             await roleManager.CreateAsync(new IdentityRole(Models.Roles.Basic.ToString()));
         }
 
-
+        //creates default superadmin user with all other roles in database
         public static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             //Seed Default User

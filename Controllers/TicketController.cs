@@ -44,6 +44,8 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                //if you want to add files to server use below code
                 /*string uniqueFileName1 = null;
                 string uniqueFileName2 = null;
                 string uniqueFileName3 = null;
@@ -91,6 +93,7 @@ namespace BugTracker.Controllers
                     addTicketViewModel.Photo3.CopyTo(new FileStream(filePath, FileMode.Create));
                 }*/
 
+                //adds uploaded files to database
                 if (Request.Form.Files.Count == 1)
                 {
 
@@ -195,5 +198,98 @@ namespace BugTracker.Controllers
 
 
         }
+
+
+        public IActionResult Edit(int id)
+        {
+            Ticket theTicket = context.Tickets.Find(id);
+            AddTicketViewModel ticket = new AddTicketViewModel
+            {
+                Id = theTicket.Id,
+                Description = theTicket.Description,
+                Picture1 = theTicket.Picture1,
+                Picture2 = theTicket.Picture2,
+                Picture3 = theTicket.Picture3
+            };
+
+            return View(ticket);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(AddTicketViewModel addTicketViewModel)
+        {
+            
+                Ticket theTicket = context.Tickets.Find(addTicketViewModel.Id);
+            
+                if (Request.Form.Files.Count == 1)
+                {
+
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
+                    using (var dataStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(dataStream);
+                        addTicketViewModel.Picture1 = dataStream.ToArray();
+                    }
+
+                }
+                else if (Request.Form.Files.Count == 2)
+                {
+
+                    IFormFile[] file = new IFormFile[2];
+                    file[0] = Request.Form.Files[0];
+                    using (var dataStream1 = new MemoryStream())
+                    {
+                        await file[0].CopyToAsync(dataStream1);
+                        addTicketViewModel.Picture1 = dataStream1.ToArray();
+                    }
+                    file[1] = Request.Form.Files[1];
+                    using (var dataStream2 = new MemoryStream())
+                    {
+                        await file[1].CopyToAsync(dataStream2);
+                        addTicketViewModel.Picture2 = dataStream2.ToArray();
+                    }
+
+                }
+                else if (Request.Form.Files.Count == 3)
+                {
+
+                    IFormFile[] file = new IFormFile[3];
+                    file[0] = Request.Form.Files[0];
+                    using (var dataStream1 = new MemoryStream())
+                    {
+                        await file[0].CopyToAsync(dataStream1);
+                        addTicketViewModel.Picture1 = dataStream1.ToArray();
+                    }
+                    file[1] = Request.Form.Files[1];
+                    using (var dataStream2 = new MemoryStream())
+                    {
+                        await file[1].CopyToAsync(dataStream2);
+                        addTicketViewModel.Picture2 = dataStream2.ToArray();
+                    }
+                    file[2] = Request.Form.Files[2];
+                    using (var dataStream3 = new MemoryStream())
+                    {
+                        await file[2].CopyToAsync(dataStream3);
+                        addTicketViewModel.Picture3 = dataStream3.ToArray();
+                    }
+
+                }
+                
+
+
+                theTicket.Description = addTicketViewModel.Description;
+                theTicket.Picture1 = addTicketViewModel.Picture1;
+                theTicket.Picture2 = addTicketViewModel.Picture2;
+                theTicket.Picture3 = addTicketViewModel.Picture3;
+
+                context.Tickets.Update(theTicket);
+                context.SaveChanges();
+
+                
+            
+            return Redirect("/ticket");
+        }
+
     }
 }
