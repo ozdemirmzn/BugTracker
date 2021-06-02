@@ -1,3 +1,8 @@
+# Live DEMO
+
+https://bugtrackerapp.azurewebsites.net/
+
+
 # BugTracker
 Technologies:
 
@@ -15,6 +20,6 @@ Autherization
 
 Bootstrap
 
-Languages:
+---------------------------------
 
-C#, Javascript, JQuery, HTML, CSS
+C#, Javascript, JQuery, HTML, CSS, AJAX
