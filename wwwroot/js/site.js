@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//Make ajax post request to DemoLoginController by submitting admin/superadmin/basic user names
+function demoLogin(userName) {
+    $.post("/DemoLogin/LoginUser", { userName: userName })
+        .done(function (data) {
+            $("#overlay").fadeOut(1000); //overlay fadeout
 
-// Write your JavaScript code.
+            //Refresh page, otherwise even though user is signed in, the page appears static. 
+            //DemoLoginController redirecting to Home / Index.cshtml doesn't work.
+            //After page reload user appears to be signed in.
+            location.reload();
+        });
+}

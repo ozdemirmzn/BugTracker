@@ -14,6 +14,8 @@ namespace BugTracker.Data
     {
         public DbSet<Ticket> Tickets { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
 
         public TicketDbContext(DbContextOptions<TicketDbContext> options)
                    : base(options)

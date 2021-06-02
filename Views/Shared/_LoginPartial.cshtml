@@ -10,16 +10,16 @@
         var user = await UserManager.FindByNameAsync(UserName);
         var FirstName = user.FirstName;
 
-    <li class="nav-item d-flex align-items-center" style="align-self: center;">
-        @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
-        {
-            <img class="nav-bar-pic"  src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
-        }
-        else
-        {
-            <img class="nav-bar-pic" src="~/images/profile.png">
-        }
-    </li>
+        <li class="nav-item d-flex align-items-center" style="align-self: center;">
+            @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+            {
+                <img class="nav-bar-pic" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+            }
+            else
+            {
+                <img class="nav-bar-pic" src="~/images/profile.png">
+            }
+        </li>
         <li class="nav-item d-flex align-items-center">
             <a id="manage" class="nav-link js-scroll-trigger" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @FirstName!</a>
         </li>
@@ -36,6 +36,9 @@
         </li>
         <li class="nav-item d-flex align-items-center">
             <a class="nav-link js-scroll-trigger" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+            <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#demoLogin">Demo Login</a>
         </li>
     }
 </ul>

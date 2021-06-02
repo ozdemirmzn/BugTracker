@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using BugTracker.Services;
 using BugTracker.Models;
 using BugTracker.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BugTracker
 {
@@ -23,6 +24,26 @@ namespace BugTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+/*            services.AddDbContext<TicketDbContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));*/
+
+            services.AddDbContext<TicketDbContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("AzureDbConnection")));
+            
+            //customize user table
+            //adding new fields
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedEmail = true;
+            })
+              .AddEntityFrameworkStores<TicketDbContext>()
+              .AddDefaultUI()
+              .AddDefaultTokenProviders();
+
+
+
+
             services.AddControllersWithViews();
             /*services.AddDbContext<TicketDbContext>(options =>
       options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));*/

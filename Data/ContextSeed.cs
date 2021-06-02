@@ -15,7 +15,6 @@ namespace BugTracker.Data
             //Seed Roles
             await roleManager.CreateAsync(new IdentityRole(Models.Roles.SuperAdmin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Models.Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Models.Roles.Moderator.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Models.Roles.Basic.ToString()));
         }
 
@@ -27,8 +26,8 @@ namespace BugTracker.Data
             {
                 UserName = "superadmin@admin.com",
                 Email = "superadmin@admin.com",
-                FirstName = "Ramazan",
-                LastName = "Ozdemir",
+                FirstName = "Admin",
+                LastName = "Admin",
                 EmailConfirmed = true
             };
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
@@ -38,9 +37,31 @@ namespace BugTracker.Data
                 {
                     await userManager.CreateAsync(defaultUser, "P@ssword1");
                     await userManager.AddToRoleAsync(defaultUser, Models.Roles.Basic.ToString());
-                    await userManager.AddToRoleAsync(defaultUser, Models.Roles.Moderator.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Models.Roles.Admin.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Models.Roles.SuperAdmin.ToString());
+                }
+
+            }
+        }
+        public static async Task SeedBasicAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            //Seed Default User
+            var defaultUser = new ApplicationUser
+            {
+                UserName = "basic@basic.com",
+                Email = "basic@basic.com",
+                FirstName = "Basic",
+                LastName = "Basic",
+                EmailConfirmed = true
+            };
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
+            {
+                var user = await userManager.FindByEmailAsync(defaultUser.Email);
+                if (user == null)
+                {
+                    await userManager.CreateAsync(defaultUser, "P@ssword1");
+                    await userManager.AddToRoleAsync(defaultUser, Models.Roles.Basic.ToString());
+                    
                 }
 
             }

@@ -9,7 +9,6 @@ namespace BugTracker.Models
     {
         SuperAdmin,
         Admin,
-        Moderator,
         Basic
     }
 }

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/bugtrackerdbserver/databases/BugTracker_db",
+      "type": "mssql.azure",
+      "connectionId": "AzureDbConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

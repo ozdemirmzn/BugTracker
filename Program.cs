@@ -29,6 +29,7 @@ namespace BugTracker
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRolesAsync(userManager, roleManager);
                     await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+                    await ContextSeed.SeedBasicAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {
